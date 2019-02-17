@@ -123,6 +123,7 @@ server.post('/api/login', async (req, res) => {
   const creds = req.body;
   try {
     const user = await db.findByUsername(creds.username);
+    res.json(user);
     if (user && bcrypt.compareSync(creds.password, user.password)) {
       // const token = generateToken(user);
       // res.json({ id: user.id, token });
@@ -133,7 +134,7 @@ server.post('/api/login', async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json({ errorOnUser: user });
+    res.status(500).send('Error');
   }
 });
 
