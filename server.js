@@ -10,7 +10,7 @@ const customerRouter = require('./customerRoutes');
 const workerRouter = require('./workerRoutes');
 
 const server = express();
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || 'secret';
 
 // set storage engine
 const storage = multer.diskStorage({
