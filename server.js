@@ -104,7 +104,7 @@ server.post('/api/register', async (req, res) => {
   const user = req.body;
   const { username, password, accountType, fname, lname, jobTitle } = user;
 
-  if (user.body.accountType === 'worker') {
+  if (user.accountType === 'worker') {
     if (!(username && password && accountType && fname && lname && jobTitle)) {
       return res.status(400).send('Please fill in all required fields');
     }
