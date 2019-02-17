@@ -86,17 +86,17 @@ server.get('/', (req, res) => {
 
 //*************************************************/
 // Admin endpoints to see what is on the DBs
-// server.get('/customers', (req, res) => {
-//   db.getCustomers().then(cus => {
-//     res.json(cus);
-//   });
-// });
+server.get('/customers', (req, res) => {
+  db.getCustomers().then(cus => {
+    res.json(cus);
+  });
+});
 
-// server.get('/workers', (req, res) => {
-//   db.getAllWorkersInfo().then(workers => {
-//     res.json(workers);
-//   });
-// });
+server.get('/workers', (req, res) => {
+  db.getAllWorkersInfo().then(workers => {
+    res.json(workers);
+  });
+});
 //**************************************************
 
 // register endpoint
@@ -104,8 +104,10 @@ server.post('/api/register', async (req, res) => {
   const user = req.body;
   const { username, password, accountType, fname, lname, jobTitle } = user;
 
-  if (!(username && password && accountType && fname && lname && jobTitle)) {
-    return res.status(400).send('Please fill in all required fields');
+  if (user.body.accountType === 'worker') {
+    if (!(username && password && accountType && fname && lname && jobTitle)) {
+      return res.status(400).send('Please fill in all required fields');
+    }
   }
   user.password = bcrypt.hashSync(user.password, 12);
   try {
