@@ -10,7 +10,7 @@ const customerRouter = require('./customerRoutes');
 const workerRouter = require('./workerRoutes');
 
 const server = express();
-const secret = process.env.SECRET || 'secret';
+const secret = process.env.SECRET;
 
 // set storage engine
 const storage = multer.diskStorage({
@@ -125,8 +125,8 @@ server.post('/api/login', async (req, res) => {
     const user = await db.findByUsername(creds.username);
     if (user && bcrypt.compareSync(creds.password, user.password)) {
       const token = generateToken(user);
-      // res.json({ id: user.id, token });
-      res.send('Passwords match');
+      res.json({ id: user.id, token });
+      // res.send('Passwords match');
     } else {
       res.status(404).json({
         error: 'Invalid credentials were entered. Please try again.'
