@@ -133,7 +133,7 @@ server.post('/api/login', async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).send('Error');
+    res.status(500).send('Error:', user);
   }
 });
 
