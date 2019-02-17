@@ -124,6 +124,7 @@ server.post('/api/login', async (req, res) => {
   try {
     const user = await db.findByUsername(creds.username);
     if (user && bcrypt.compareSync(creds.password, user.password)) {
+      console.log('passwords match');
       const token = generateToken(user);
       res.json({ id: user.id, token });
     } else {
